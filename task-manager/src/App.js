@@ -9,7 +9,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />}/>
           <Route path="/to_do_list" element={<ToDo />}/>
-
         </Routes>
       </Router>
     </div>
