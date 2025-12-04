@@ -1,0 +1,22 @@
+.background{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #202C39;
+    text-align: center;
+  
+  }
+  .scrollableDiv {
+    background-color: purple;
+    height:150px;
+    width:400px;
+    overflow-y:scroll;
+    margin:20px;
+    text-align: justify;
+    padding: 20px;
+}
