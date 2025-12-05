@@ -258,7 +258,7 @@
   font-size: 0.8rem;
 }
 
-/* You can tweak these colors as you like */
+
 .todo-edit-button {
   background-color: #4a90e2;
   color: white;
@@ -287,7 +287,6 @@
   padding: 4px 0;
 }
 
-/* Small responsive tweak */
 @media (max-width: 600px) {
   .scrollableDiv {
     padding: 16px;
@@ -307,4 +306,26 @@
     margin-left: 0;
     align-self: flex-start;
   }
+}
+
+.todo-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0 8px;
+}
+
+.todo-sort {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+}
+
+.todo-sort-select {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.85rem;
+  background-color: white;
 }

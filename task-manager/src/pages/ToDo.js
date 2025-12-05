@@ -4,42 +4,41 @@ import { useState } from 'react';
 export const ToDo = () => {
   // State for the text in the input box
   const [taskInput, setTaskInput] = useState('');
-  // Each task: { text, completed, category }
+
   const [tasks, setTasks] = useState([]);
 
-  // Which task (by index) is being edited, or null if none
+
   const [editingIndex, setEditingIndex] = useState(null);
-  // Temporary text while editing a task
+
   const [editingText, setEditingText] = useState('');
 
-  // Whether we're viewing completed tasks or active tasks
   const [showCompleted, setShowCompleted] = useState(false);
 
   // List of category names; start with "Uncategorized"
   const [categories, setCategories] = useState(['Uncategorized']);
-  // Which category is currently being filtered on ("All" or one of categories)
+  // Which category is currently being filtered
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-  // For inline "add category" UI
+
   const [isAddingCategory, setIsAddingCategory] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
 
-  // For editing existing categories
+  // For editing categories
   const [categoryEditingIndex, setCategoryEditingIndex] = useState(null);
   const [categoryEditingName, setCategoryEditingName] = useState('');
 
-  // Show/hide the Manage Categories section
   const [showCategoryManager, setShowCategoryManager] = useState(false);
+
+  const [sortMode, setSortMode] = useState('recent');
 
   const handleAddTask = () => {
     const trimmed = taskInput.trim();
-    if (!trimmed) return; // don't add empty tasks
-
-    // New tasks default to "Uncategorized"
+    if (!trimmed) return; 
     const newTask = {
       text: trimmed,
       completed: false,
       category: 'Uncategorized',
+      createdAt: Date.now(),
     };
 
     setTasks((prevTasks) => [...prevTasks, newTask]);
@@ -57,7 +56,7 @@ export const ToDo = () => {
       prevTasks.filter((_, index) => index !== indexToRemove)
     );
 
-    // If we delete the task that's being edited, exit edit mode
+    // If we delete task that's being edited exit edit
     if (editingIndex === indexToRemove) {
       setEditingIndex(null);
       setEditingText('');
@@ -97,7 +96,7 @@ export const ToDo = () => {
     setEditingText('');
   };
 
-  // Toggle a task between active and completed
+  // Toggle task between active and completed
   const handleToggleComplete = (indexToToggle) => {
     setTasks((prevTasks) =>
       prevTasks.map((task, index) =>
@@ -108,7 +107,7 @@ export const ToDo = () => {
     );
   };
 
-  // Change the category of a given task
+  // Change category of task
   const handleChangeCategory = (indexToChange, newCategory) => {
     setTasks((prevTasks) =>
       prevTasks.map((task, index) =>
@@ -117,7 +116,7 @@ export const ToDo = () => {
     );
   };
 
-  // Toggle which set of tasks we're viewing (Active vs Completed)
+  // Toggle set of tasks viewing
   const toggleView = () => {
     setShowCompleted((prev) => !prev);
     setEditingIndex(null);
@@ -130,7 +129,10 @@ export const ToDo = () => {
     setEditingText('');
   };
 
-  // --- Category: Add (inline) ---
+  const handleSortChange = (event) => {
+    setSortMode(event.target.value);
+  };
+
 
   const handleAddCategoryClick = () => {
     setIsAddingCategory(true);
@@ -166,10 +168,10 @@ export const ToDo = () => {
     }
   };
 
-  // --- Category: Edit & Delete ---
+  // Categories
 
   const handleStartCategoryEdit = (index) => {
-    // Don't allow editing "Uncategorized"
+    // Don't allow editing uncategorized
     if (categories[index] === 'Uncategorized') return;
 
     setCategoryEditingIndex(index);
@@ -187,14 +189,14 @@ export const ToDo = () => {
     setCategories((prev) => {
       const oldName = prev[categoryEditingIndex];
 
-      // If name didn't change, just exit
+      // If name didn't change exit
       if (oldName === trimmed) {
         return prev;
       }
 
       // Avoid duplicates
       if (prev.includes(trimmed)) {
-        // If there's already a category with this name, just exit edit mode
+        // If there's already a category with this name exit edit mode
         return prev;
       }
 
@@ -202,14 +204,14 @@ export const ToDo = () => {
         idx === categoryEditingIndex ? trimmed : cat
       );
 
-      // Update tasks that used the old category name
+      // Update tasks that used old category name
       setTasks((taskPrev) =>
         taskPrev.map((task) =>
           task.category === oldName ? { ...task, category: trimmed } : task
         )
       );
 
-      // Update selectedCategory if needed
+      // Update selectedCategory
       setSelectedCategory((sel) => (sel === oldName ? trimmed : sel));
 
       return updated;
@@ -235,14 +237,14 @@ export const ToDo = () => {
   const handleDeleteCategory = (indexToRemove) => {
     const nameToRemove = categories[indexToRemove];
 
-    // Don't allow deleting "Uncategorized"
+    // Don't allow deleting Uncategorized
     if (nameToRemove === 'Uncategorized') return;
 
     setCategories((prev) =>
       prev.filter((_, idx) => idx !== indexToRemove)
     );
 
-    // Reassign tasks using this category to "Uncategorized"
+    // Reassign tasks using this category to uncategorized
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         task.category === nameToRemove
@@ -251,21 +253,21 @@ export const ToDo = () => {
       )
     );
 
-    // If we were filtering by that category, reset to "All"
+    // If filtering by that category, reset to All
     setSelectedCategory((sel) =>
       sel === nameToRemove ? 'All' : sel
     );
 
-    // If we were editing that category, exit edit mode
+    // If editing category, exit edit mode
     if (categoryEditingIndex === indexToRemove) {
       setCategoryEditingIndex(null);
       setCategoryEditingName('');
     }
   };
 
-  // --- Visible tasks based on view + category filter ---
+  // Visible tasks
 
-  const visibleTasks = tasks
+  let visibleTasks = tasks
     .map((task, index) => ({ task, index }))
     .filter((item) => {
       const matchesCompleted = item.task.completed === showCompleted;
@@ -275,6 +277,24 @@ export const ToDo = () => {
 
       return matchesCompleted && matchesCategory;
     });
+
+  // Apply sorting
+  if (sortMode === 'alpha') {
+    visibleTasks = [...visibleTasks].sort((a, b) =>
+      a.task.text.localeCompare(b.task.text)
+    );
+  } else if (sortMode === 'category') {
+    visibleTasks = [...visibleTasks].sort((a, b) => {
+      const catCompare = a.task.category.localeCompare(b.task.category);
+      if (catCompare !== 0) return catCompare;
+      return a.task.text.localeCompare(b.task.text);
+    });
+  } else if (sortMode === 'recent') {
+    // Newest first
+    visibleTasks = [...visibleTasks].sort(
+      (a, b) => (b.task.createdAt || 0) - (a.task.createdAt || 0)
+    );
+  }
 
   const hasNoVisibleTasks = visibleTasks.length === 0;
 
@@ -317,7 +337,7 @@ export const ToDo = () => {
           </button>
         </div>
 
-        {/* View + Category filter row */}
+
         <div className="todo-filter-row">
           <div className="todo-view-toggle">
             <button className="todo-toggle-button" onClick={toggleView}>
@@ -389,7 +409,6 @@ export const ToDo = () => {
           </div>
         </div>
 
-        {/* Manage Categories section (togglable) */}
         {showCategoryManager && (
           <div className="todo-category-manage">
             <h3 className="todo-category-manage-title">
@@ -467,7 +486,21 @@ export const ToDo = () => {
           </div>
         )}
 
-        <h2 className="todo-section-title">{viewTitle}</h2>
+        <div className="todo-section-header">
+          <h2 className="todo-section-title">{viewTitle}</h2>
+          <div className="todo-sort">
+            <label className="todo-sort-label">Sort:</label>
+            <select
+              className="todo-sort-select"
+              value={sortMode}
+              onChange={handleSortChange}
+            >
+              <option value="recent">Recently added</option>
+              <option value="alpha">Alphabetical</option>
+              <option value="category">Category</option>
+            </select>
+          </div>
+        </div>
 
         <ul className="todo-list">
           {hasNoVisibleTasks ? (
@@ -484,7 +517,7 @@ export const ToDo = () => {
                     (task.completed ? ' todo-item-completed' : '')
                   }
                 >
-                  {/* Checkbox: complete/active */}
+                 
                   <input
                     type="checkbox"
                     checked={task.completed}
@@ -517,7 +550,7 @@ export const ToDo = () => {
                     </>
                   )}
 
-                  {/* Category selector for this task */}
+                  
                   <select
                     className="todo-category-select-inline"
                     value={task.category}
@@ -532,7 +565,7 @@ export const ToDo = () => {
                     ))}
                   </select>
 
-                  {/* Actions */}
+                  
                   <div className="todo-actions">
                     {isEditing ? (
                       <>
