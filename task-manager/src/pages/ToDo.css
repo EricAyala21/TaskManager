@@ -1,42 +1,47 @@
 /* Make the whole page fill the screen */
 .background {
   width: 100%;
-  height: 100vh;            
+  height: 100vh;              /* full viewport height */
   display: flex;
-  justify-content: center; 
-  align-items: center;      
-  background-color: #0b1b3b; 
-  padding: 16px;           
+  justify-content: center;    /* center horizontally */
+  align-items: center;        /* center vertically */
+  background-color: #0b1b3b;  /* dark blue background (can match Login) */
+  padding: 16px;
   box-sizing: border-box;
 }
 
+/* Main card container */
 .scrollableDiv {
   width: 100%;
-  max-width: 800px;       
-  max-height: 100%;      
-  background-color: #f2d492;
+  max-width: 900px;
+  height: 100%;
+  max-height: 100%;
+  background-color: #f2d492;  /* warm yellow panel */
   border-radius: 12px;
   padding: 20px;
   box-sizing: border-box;
 
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  overflow-y: auto;           /* scroll inside this box if content overflows */
 }
 
+/* Titles / text */
 .todo-title {
-  margin: 0 0 8px;
+  margin: 0 0 4px;
+  font-size: 1.8rem;
 }
 
 .todo-subtitle {
   margin: 0 0 16px;
+  font-size: 0.95rem;
 }
 
-
+/* Input row for adding tasks */
 .todo-input-row {
   display: flex;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
 }
 
 .todo-input {
@@ -44,6 +49,7 @@
   padding: 8px 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
+  font-size: 0.95rem;
 }
 
 .todo-add-button {
@@ -51,8 +57,148 @@
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  font-size: 0.95rem;
+  background-color: #2d8a34;
+  color: white;
 }
 
+.todo-add-button:hover {
+  opacity: 0.9;
+}
+
+/* Filter row: view toggle + category filter + manage button */
+.todo-filter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* View toggle (Active / Completed) */
+.todo-view-toggle {
+  display: flex;
+  align-items: center;
+}
+
+.todo-toggle-button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #4a90e2;
+  color: white;
+}
+
+.todo-toggle-button:hover {
+  opacity: 0.9;
+}
+
+/* Category filter + add inline */
+.todo-category-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.todo-category-label {
+  font-size: 0.9rem;
+}
+
+.todo-category-select,
+.todo-category-select-inline {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  background-color: white;
+}
+
+.todo-category-select-inline {
+  margin: 0 8px;
+}
+
+.todo-add-category-button {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+  background-color: #4a90e2;
+  color: white;
+}
+
+.todo-add-category-button:hover {
+  opacity: 0.9;
+}
+
+/* Inline category add UI */
+.todo-add-category-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.todo-add-category-input {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 0.85rem;
+  min-width: 140px;
+}
+
+/* Manage categories toggle button (right side of filter row) */
+.todo-category-manage-toggle {
+  margin-left: auto;
+}
+
+/* Manage Categories section */
+.todo-category-manage {
+  margin-top: 8px;
+  margin-bottom: 16px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.todo-category-manage-title {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+
+.todo-category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-category-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.todo-category-name {
+  font-size: 0.9rem;
+  flex: 1;             
+}
+
+/* Task section title */
+.todo-section-title {
+  margin: 8px 0 8px;
+  font-size: 1.05rem;
+}
+
+.todo-category-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* Task list */
 .todo-list {
   list-style: none;
   padding: 0;
@@ -61,40 +207,44 @@
 
 .todo-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 8px;
   padding: 6px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.todo-item:last-child {
+  border-bottom: none;
+}
+
+.todo-item-completed {
+  opacity: 0.85;
+}
+
+/* Task text */
 .todo-text {
   flex: 1;
-  margin-right: 8px;
+  font-size: 0.95rem;
 }
 
-.todo-delete-button {
-  border: none;
-  background: transparent;
-  cursor: pointer;
+.todo-text-completed {
+  text-decoration: line-through;
+  color: #555;
 }
 
-.todo-empty {
-  color: rgba(0, 0, 0, 0.6);
-  font-style: italic;
-  padding-top: 8px;
-}
-
-.todo-actions {
-  display: flex;
-  gap: 6px;
-}
-
+/* Edit input for task text */
 .todo-edit-input {
   flex: 1;
   padding: 6px 8px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  margin-right: 8px;
+  font-size: 0.95rem;
+}
+
+/* Actions (Edit / Delete / Save / Cancel) */
+.todo-actions {
+  display: flex;
+  gap: 6px;
 }
 
 .todo-edit-button,
@@ -105,9 +255,10 @@
   border-radius: 4px;
   border: none;
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
 
+/* You can tweak these colors as you like */
 .todo-edit-button {
   background-color: #4a90e2;
   color: white;
@@ -119,11 +270,41 @@
 }
 
 .todo-cancel-button {
-  background-color: #aaaaaa;
+  background-color: #777777;
   color: white;
 }
 
 .todo-delete-button {
   background-color: #c0392b;
   color: white;
+}
+
+/* Empty state text */
+.todo-empty {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+  font-size: 0.9rem;
+  padding: 4px 0;
+}
+
+/* Small responsive tweak */
+@media (max-width: 600px) {
+  .scrollableDiv {
+    padding: 16px;
+  }
+
+  .todo-input-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .todo-filter-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .todo-category-manage-toggle {
+    margin-left: 0;
+    align-self: flex-start;
+  }
 }
