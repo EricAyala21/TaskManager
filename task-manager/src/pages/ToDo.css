@@ -1,22 +1,129 @@
-.background{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width:100%;
-    height:100%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #202C39;
-    text-align: center;
-  
-  }
-  .scrollableDiv {
-    background-color: purple;
-    height:150px;
-    width:400px;
-    overflow-y:scroll;
-    margin:20px;
-    text-align: justify;
-    padding: 20px;
+/* Make the whole page fill the screen */
+.background {
+  width: 100%;
+  height: 100vh;            
+  display: flex;
+  justify-content: center; 
+  align-items: center;      
+  background-color: #0b1b3b; 
+  padding: 16px;           
+  box-sizing: border-box;
+}
+
+.scrollableDiv {
+  width: 100%;
+  max-width: 800px;       
+  max-height: 100%;      
+  background-color: #f2d492;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+.todo-title {
+  margin: 0 0 8px;
+}
+
+.todo-subtitle {
+  margin: 0 0 16px;
+}
+
+
+.todo-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.todo-input {
+  flex: 1;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.todo-add-button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.todo-text {
+  flex: 1;
+  margin-right: 8px;
+}
+
+.todo-delete-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.todo-empty {
+  color: rgba(0, 0, 0, 0.6);
+  font-style: italic;
+  padding-top: 8px;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.todo-edit-input {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-right: 8px;
+}
+
+.todo-edit-button,
+.todo-save-button,
+.todo-cancel-button,
+.todo-delete-button {
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.todo-edit-button {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.todo-save-button {
+  background-color: #2d8a34;
+  color: white;
+}
+
+.todo-cancel-button {
+  background-color: #aaaaaa;
+  color: white;
+}
+
+.todo-delete-button {
+  background-color: #c0392b;
+  color: white;
 }
