@@ -1,0 +1,148 @@
+.category-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.category-manager h2 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.category-item-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: 2px solid transparent;
+}
+
+.category-item:hover {
+  transform: translateX(5px);
+  border-color: #667eea;
+}
+
+.category-item.all-tasks {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.category-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.btn-edit,
+.btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.category-add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.category-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.category-input,
+.category-edit-input {
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.category-input:focus,
+.category-edit-input:focus {
+  border-color: #667eea;
+}
+
+.category-form-actions,
+.category-edit-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-add,
+.btn-save,
+.btn-cancel,
+.btn-add-category {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-add,
+.btn-save {
+  background: #667eea;
+  color: white;
+}
+
+.btn-add:hover,
+.btn-save:hover {
+  background: #5568d3;
+}
+
+.btn-cancel {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.btn-cancel:hover {
+  background: #d0d0d0;
+}
+
+.btn-add-category {
+  background: #667eea;
+  color: white;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.btn-add-category:hover {
+  background: #5568d3;
+}
+
