@@ -25,13 +25,10 @@
   cursor: pointer;
   font-size: 16px;
   font-weight: 500;
-  transition: all 0.2s;
 }
 
 .btn-add-task:hover {
   background: #5568d3;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.3);
 }
 
 .task-form {
@@ -53,7 +50,6 @@
   font-size: 14px;
   font-family: inherit;
   outline: none;
-  transition: border-color 0.2s;
 }
 
 .task-input:focus,
@@ -74,14 +70,12 @@
 
 .btn-save {
   background: #667eea;
-  color: white;
   border: none;
   padding: 10px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  transition: all 0.2s;
 }
 
 .btn-save:hover {
@@ -120,7 +114,6 @@
 
 .task-item:hover {
   border-color: #667eea;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .task-item.completed {
@@ -204,7 +197,6 @@
   font-size: 18px;
   padding: 8px;
   border-radius: 6px;
-  transition: background 0.2s;
 }
 
 .btn-edit-task:hover,
